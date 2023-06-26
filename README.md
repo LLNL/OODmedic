@@ -3,12 +3,6 @@
 ![](https://img.shields.io/badge/pytorch-green)
 This repository hosts the official PyTorch implementation for: [`Know Your Space: Inlier and Outlier Construction for Calibrating Medical OOD Detectors`](https://openreview.net/forum?id=RU7fr0-M8N), MIDL 2023.
 
-## Abstract
->
-We focus on the problem of producing well-calibrated out-of-distribution (OOD) detectors, in order to enable safe deployment of medical image classifiers. Motivated by the difficulty of curating suitable calibration datasets, synthetic augmentations have become highly prevalent for inlier/outlier specification. While there have been rapid advances in data augmentation techniques, this paper makes a striking finding that the space in which the inliers and outliers are synthesized, in addition to the type of augmentation, plays a critical role in calibrating OOD detectors. Using the popular energy-based OOD detection framework, we find that the optimal protocol is to synthesize latent-space inliers along with diverse pixel-space outliers. Based on empirical studies with multiple medical imaging benchmarks, we demonstrate that our approach consistently leads to superior OOD detection (15 - 35 percent improvement in AUROC) over the state-of-the-art in a variety of open-set recognition settings.
-
-
-Refer to the diagram below for a quick summary of our approach
 ![Functional Diagram](teaser.PNG)
 
 ## Dependencies
