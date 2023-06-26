@@ -1,0 +1,69 @@
+# Basic Information
+title: Know Your Space - Inlier and Outlier Construction for Calibrating Medical OOD Detectors
+
+authors:
+  - name: Vivek Narayanaswamy
+    link: https://vivsivaraman.github.io/
+    equal_contrib: true
+    affiliations: [1]
+  - name: Yamen Mubarka
+    link: https://www.linkedin.com/in/yamen-mubarka
+    equal_contrib: true
+    affiliations: [1]
+  - name: Rushil Anirudh
+    link: https://rushila.com
+    affiliations: [1]
+  - name: Deepta Rajan
+    link: https://www.linkedin.com/in/deeptarajan
+    affiliations: [2]
+  - name: Andreas Spanias
+    link: https://spanias.faculty.asu.edu
+    affiliations: [3]
+  - name: Jayaraman J. Thiagarajan
+    link: https://jjthiagarajan.com/
+    affiliations: [1]
+
+affiliations:
+  - symbol: '1'
+    name: Lawrence Livermore National Laboratory, CA, USA
+    link: https://www.llnl.gov/
+  - symbol: '2'
+    name: Microsoft, WA, USA
+    link: https://www.microsoft.com/
+  - symbol: '3'
+    name: Arizona State University, AZ, USA
+    link: https://www.asu.edu/
+
+contact:
+  emails: "narayanaswam1@llnl.gov; jjayaram@llnl.gov"
+
+
+# conference: 2023 Medical Imaging with Deep Learning (MIDL 2023), 
+
+# Search Engine Optimization (SEO)
+keywords:  Out-of-distribution Detection, Data Augmentations, Medical Imaging, Open-set Recognition
+canonical: https://vivsivaraman.github.io/
+description: This paper identifies that the space in which the inliers and outliers are synthesized, in addition to the type of augmentation, plays a critical role in calibrating OOD detectors.
+
+# Links
+paper_link: https://arxiv.org/pdf/2207.05286.pdf
+slides_link: https://arxiv.org/pdf/2207.05286.pdf
+poster_link: https://arxiv.org/pdf/2207.05286.pdf
+video_link: 
+github_link: https://github.com/LLNL/OODmedic
+
+# Images
+avatar: ./assets/img/avatar.png
+favicon: ./assets/img/favicon.png
+favicon_dark: ./assets/img/favicon-dark.png
+
+# Footnotes
+enable_footnote: false
+
+# The following files will be removed from the generated website.
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - LICENSE
+  - CNAME

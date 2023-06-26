@@ -1,70 +1,168 @@
-# Know Your Space: Inlier and Outlier Construction for Calibrating Medical OOD Detectors
+# Academic Website Template Guide
 
-![](https://img.shields.io/badge/pytorch-green)
-This repository hosts the official PyTorch implementation for: [`Know Your Space: Inlier and Outlier Construction for Calibrating Medical OOD Detectors`](https://openreview.net/forum?id=RU7fr0-M8N), MIDL 2023.
+This is a simple guide to help you set up a webpage for your academic research project. This template uses Jekyll, a static site generator, which allows you to write your content in Markdown and manage your website with a `_config.yml` file.
 
-## Abstract
->
-We focus on the problem of producing well-calibrated out-of-distribution (OOD) detectors, in order to enable safe deployment of medical image classifiers. Motivated by the difficulty of curating suitable calibration datasets, synthetic augmentations have become highly prevalent for inlier/outlier specification. While there have been rapid advances in data augmentation techniques, this paper makes a striking finding that the space in which the inliers and outliers are synthesized, in addition to the type of augmentation, plays a critical role in calibrating OOD detectors. Using the popular energy-based OOD detection framework, we find that the optimal protocol is to synthesize latent-space inliers along with diverse pixel-space outliers. Based on empirical studies with multiple medical imaging benchmarks, we demonstrate that our approach consistently leads to superior OOD detection (15 - 35 percent improvement in AUROC) over the state-of-the-art in a variety of open-set recognition settings.
+## Overview
 
+The main parts of the site you'll work with are:
 
-Refer to the diagram below for a quick summary of our approach
-![Functional Diagram](teaser.PNG)
+1. `_config.yml` - Configuration details for the website.
+2. `index.md` - The main content of your webpage. You will write most of your content here.
+3. `_includes` - This folder contains HTML snippets that can be included in `index.md` using Jekyll's `{% include %}` tag.
 
-## Dependencies
-This codebase was developed and tested using
+## Step-by-step guide
 
-+ matplotlib `3.4.3`
-+ numpy `1.20.3`
-+ scikit_learn `1.1.3`
-+ torch `1.10.0`
-+ opencv `0.6`
+### Step 1: Clone the Repository
 
-## Downloading MedMNIST Datasets, Train/Val Splits and Model Checkpoints
-[Click here](https://arizonastateu-my.sharepoint.com/:u:/g/personal/vnaray29_sundevils_asu_edu/ESSQ986FmfdPlBNtnYLVD9AB6cAZFjWVUeuD0kW28ltslQ?e=e2vj3A) to download the MedMNIST datasets along with the Train/Val Split CSV Files. Extract them in your working directory.
-
-## 1. Training the classifier with Latent Space Inliers and Pixel Space Outliers  
-To train the classifier on a dataset from MedMNIST (for e.g., bloodmnist)
+Start by cloning the academic website template repository to your local machine. Open a terminal, navigate to your desired directory, and run:
 
 ```
-python train_in_latent_out_pix.py --in_dataset bloodmnist --model_type wrn --dist --augmix --rand_conv --ckpt_name in_latent_out_pix
+git clone https://github.com/YourUsername/academic-website-template.git
 ```
 
-## 2. Perform OOD Detection
+This will create a copy of the template in your chosen directory.
+
+### Step 2: Install Ruby and Jekyll
+
+To run your website locally with Jekyll, you need to install Ruby and Jekyll first.
+
+For Ruby, follow the installation guide in the [official Ruby website](https://www.ruby-lang.org/en/documentation/installation/).
+
+For Jekyll, open a terminal and install it with the following command:
 
 ```
-python ood_detection.py --in_dataset bloodmnist --model_type wrn --dir_name in_latent_out_pix
+gem install jekyll bundler
 ```
 
-NOTE: For performing OOD detection, you must have the classifier trained on the given dataset stored in `./ckpts`
+### Step 3: Edit `_config.yml`
 
-# To reproduce our results
-Download the checkpoints from the link provided above. Extract the .zip file as is in your working directory. Then execute
+In the root of your cloned repository, you'll see a file called `_config.yml`. This is where you'll put your site's configuration details.
+
+Open `_config.yml` in a text editor, and you'll see a number of variables you can set:
+
+- `title`: The title of your site.
+- `email`: Your email address.
+- `description`: A short description of your site for SEO.
+- `url`: The base URL of your site.
+- `twitter_username`: Your Twitter username.
+- `github_username`: Your GitHub username.
+- `theme`: The Jekyll theme to use.
+
+Here, you can also add custom variables such as `authors`, `affiliations`, `conference` to provide more information about the academic context of your project.
+
+### Step 4: Edit `index.md`
+
+The `index.md` file is the content for your site's homepage. You write the content in Markdown, and Jekyll will convert it to HTML for your site.
+
+The top of `index.md` contains YAML front matter, which sets page-specific variables:
+
+```markdown
+---
+layout: homepage
+---
+
+# Your Project Title
 ```
-python ood_detection.py --in_dataset bloodmnist --model_type wrn --dir_name in_latent_out_pix
+
+Following the front matter, you can write your page content in Markdown. Headers can be created using "#" for `<h1>`, "##" for `<h2>`, "###" for `<h3>` and so on.
+
+You can also use Jekyll's `{% include %}` tag to include HTML snippets from the `_includes` folder.
+
+For example, to include an image:
+
+```markdown
+{% include add_image.html 
+    image="path_to_image"
+    caption="Your image caption" 
+    alt_text="Alt text for the image" 
+%}
 ```
 
-## Citation
+For adding a citation:
 
-Our paper can be cited as:
-
-```
-@inproceedings{narayanaswamy2023know,
-title={Know Your Space: Inlier and Outlier Construction for Calibrating Medical {OOD} Detectors},
-author={Vivek Narayanaswamy and Yamen Mubarka and Rushil Anirudh and Deepta Rajan and Andreas Spanias and Jayaraman J. Thiagarajan},
-booktitle={Medical Imaging with Deep Learning},
-year={2023}}
+```markdown
+{% include add_citation.html text="Your citation text" %}
 ```
 
-## Acknowledgments
+For adding a contact form:
 
-We adapt the official implementation of Virtual Outlier Synthesis for implementing our baselines and algorithms: https://github.com/deeplearning-wisc/vos. We sincerely thank the authors for open-sourcing their code.
+```markdown
+{% include add_contact.html email="your@email.com" %}
+```
 
-We thank the authors of ['MedMNIST v2-A large-scale lightweight benchmark for 2D and 3D biomedical image classification'](https://medmnist.com/) for providing the MedMNIST Benchmark
+To include a gallery of images:
 
-We thank the authors of ['Augmix'](https://github.com/google-research/augmix) and ['RandConv'](https://github.com/wildphoton/RandConv) for open-sourcing their implementations
+```markdown
+{% include add_gallery.html data="gallery_data_file_name" %}
+```
 
-We thank the authors of ['Robust Out-of-distribution Detection in Neural Networks'](https://github.com/jfc43/robust-ood-detection) for open sourcing their code base.
+### Step 5: Preview Your Site Locally
 
-## License
-This code is distributed under the terms of the MIT license. All new contributions must be made under this license. LLNL-CODE-850636 SPDX-License-Identifier: MIT
+While you're working on your site, you can preview it by running a local server. In your terminal, navigate to your site's folder and execute the following commands:
+
+```bash
+bundle install
+bundle exec jekyll server
+```
+
+This will start a Jekyll server and you can view your website live locally. Open your preferred web browser and go to the following URL:
+
+```
+http://localhost:4000
+```
+
+This will allow you to see how your site will look once it's published, and you can make live edits to your content.
+
+### Step 6: Publish Your Site to GitHub Pages
+
+Once you're satisfied with your website, you can publish it using GitHub Pages.
+
+1. Initialize a new Git repository in your project folder by running:
+
+```bash
+git init
+```
+
+2. Stage and commit all your files:
+
+```bash
+git add .
+git commit -m "Initial commit"
+```
+
+3. On GitHub, create a new repository under your account. If you want your site to be published at `yourusername.github.io`, name the repository exactly that.
+
+4. Add the GitHub repository as a remote and push your local repository:
+
+```bash
+git remote add origin https://github.com/YourUsername/yourusername.github.io.git
+git push -u origin master
+```
+
+5. Go to your repository's settings on GitHub, scroll down to the GitHub Pages section, and set the source to `master branch`.
+
+Your site should now be live at `https://yourusername.github.io`.
+
+---
+
+
+### Acknowledgements
+
+This project uses the source code from the following repositories:
+
+* [pages-themes/minimal](https://github.com/pages-themes/minimal)
+
+* [orderedlist/minimal](https://github.com/orderedlist/minimal)
+
+* [al-folio](https://github.com/alshedivat/al-folio)
+
+* [minimal-light](https://github.com/yaoyao-liu/minimal-light)
+
+We would like to thank the authors of these projects for their work. This project would not have been possible without their open-source contributions.
+
+In addition, special thanks to [0xcadams](https://github.com/0xcadams) and [jjayaram7](https://github.com/jjayaram7) for their valuable support in creating this project.
+
+---
+
+
+That's it! You've now got a fully-functional academic website up and running. Remember, the beauty of Jekyll is that you can always update your site simply by editing your Markdown files and pushing the changes to GitHub. Enjoy!

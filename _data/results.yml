@@ -1,0 +1,18 @@
+# - src: "assets/img/results_new_1.png"
+#   alt:
+#   caption: "We demonstrate the efficacy of our proposed calibration protocol on a variety of open-set recongnition settings namely modality shifts that contain semantically disparate concepts, and novel classes that ontain images unseen during training"
+
+- src: "assets/img/results_new_2.png"
+  alt: 
+  caption: "Our calibration protocol consistently outperforms all baselines (G-ODIN, VOS, VOS++, NDA, NDA++) by significant margins (10% to 30% on average for Modality Shift Detection and 15% to 28% for Novel Class Detection ) in terms of AUROC scores without compromising on the ID accuracy."
+
+- src: "assets/img/results_2_1.png"
+  alt: 
+  caption: "Our approach better demarcates between ID and OOD distributions as seen in the histogram plots of the energy scores in comparison to the baselines."
+
+- src: "assets/img/results_3_1.png"
+  alt: 
+  caption: "In fact, our approach can effectively detect even covariate shifts and demonstrates a substantial improvement of approximately 7% to 35% in AUROC compared to the baselines."
+# - src: "assets/img/multiclass_cls_2.png"
+#   caption: 
+#   alt: "Alt text 4"

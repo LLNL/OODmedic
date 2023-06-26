@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <title>Know Your Space - Inlier and Outlier Construction for Calibrating Medical OOD Detectors</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="description" content="Know Your Space - Inlier and Outlier Construction for Calibrating Medical OOD Detectors">
+    <meta name="keywords" content="Out-of-distribution Detection, Data Augmentations, Medical Imaging, Open-set Recognition">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Know Your Space - Inlier and Outlier Construction for Calibrating Medical OOD Detectors's Homepage">
+    <meta property="og:url" content="https://vivsivaraman.github.io/">
+    <meta property="og:site_name" content="Know Your Space - Inlier and Outlier Construction for Calibrating Medical OOD Detectors's Homepage">
+    <meta property="og:description" content="This paper identifies that the space in which the inliers and outliers are synthesized, in addition to the type of augmentation, plays a critical role in calibrating OOD detectors.">
+    <meta property="og:locale" content="default">
+    <meta property="og:image" content="./assets/img/avatar.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Know Your Space - Inlier and Outlier Construction for Calibrating Medical OOD Detectors's Homepage">
+    <meta name="twitter:description" content="This paper identifies that the space in which the inliers and outliers are synthesized, in addition to the type of augmentation, plays a critical role in calibrating OOD detectors.">
+    <meta name="twitter:image" content="./assets/img/avatar.png">
+    <meta name="color-scheme" content="light">
+
+    <link rel="canonical" href="https://vivsivaraman.github.io/"/>
+
+    <link rel="icon" media="(prefers-color-scheme:dark)" href="./assets/img/favicon-dark.png" type="image/png" />
+    <link rel="icon" media="(prefers-color-scheme:light)" href="./assets/img/favicon.png" type="image/png" />
+    <script src="./assets/js/favicon-switcher.js" type="application/javascript"></script>
+
+    <link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin=anonymous>
+    <link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin=anonymous>
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/pub.css">
+
+    <script src="./assets/js/github-stars.js"></script>
+    <script type="text/javascript" src="./assets/js/jquery.js"></script>
+    
+
+  </head>
+  <body>
+    <script src="./assets/js/vanilla-back-to-top.min.js"></script>
+    <script>addBackToTop({
+        backgroundColor: '#fff',
+        innerHTML: 'Back to Top',
+        textColor: '#333'
+      })
+    </script>
+    <style>
+        #back-to-top {
+          border: 1px solid #ccc;
+          border-radius: 0;
+          font-size: 15px;
+          width: 100px;
+          text-align: center;
+          line-height: 30px;
+          height: 30px;
+        }
+    </style>
+    
+    
+    <header>
+      <div class="title">Know Your Space - Inlier and Outlier Construction for Calibrating Medical OOD Detectors</div>
+
+      <br />
+    
+    <div class="authors" style="display: flex; justify-content: center; flex-wrap: wrap; column-gap: 10px;">
+        
+        <div style="max-width: fit-content;">
+            <h2 style="font-size: 1.3rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+            
+            <a href="https://vivsivaraman.github.io/" target="_blank" rel="noopener noreferrer">Vivek Narayanaswamy</a>
+            
+            *
+            
+                
+                
+                <sup>1</sup>
+                
+            
+            </h2>
+        </div>
+        
+        <div style="max-width: fit-content;">
+            <h2 style="font-size: 1.3rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+            
+            <a href="https://www.linkedin.com/in/yamen-mubarka" target="_blank" rel="noopener noreferrer">Yamen Mubarka</a>
+            
+            *
+            
+                
+                
+                <sup>1</sup>
+                
+            
+            </h2>
+        </div>
+        
+        <div style="max-width: fit-content;">
+            <h2 style="font-size: 1.3rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+            
+            <a href="https://rushila.com" target="_blank" rel="noopener noreferrer">Rushil Anirudh</a>
+            
+            
+            
+                
+                
+                <sup>1</sup>
+                
+            
+            </h2>
+        </div>
+        
+        <div style="max-width: fit-content;">
+            <h2 style="font-size: 1.3rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+            
+            <a href="https://www.linkedin.com/in/deeptarajan" target="_blank" rel="noopener noreferrer">Deepta Rajan</a>
+            
+            
+            
+                
+                
+                <sup>2</sup>
+                
+            
+            </h2>
+        </div>
+        
+        <div style="max-width: fit-content;">
+            <h2 style="font-size: 1.3rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+            
+            <a href="https://spanias.faculty.asu.edu" target="_blank" rel="noopener noreferrer">Andreas Spanias</a>
+            
+            
+            
+                
+                
+                <sup>3</sup>
+                
+            
+            </h2>
+        </div>
+        
+        <div style="max-width: fit-content;">
+            <h2 style="font-size: 1.3rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+            
+            <a href="https://jjthiagarajan.com/" target="_blank" rel="noopener noreferrer">Jayaraman J. Thiagarajan</a>
+            
+            
+            
+                
+                
+                <sup>1</sup>
+                
+            
+            </h2>
+        </div>
+        
+    </div>
+    
+        
+    <br />
+
+    
+    <div style="display: flex; justify-content: center; grid-gap: 25px; font-size: large">
+        
+        <h4><a href="https://www.llnl.gov/" target="_blank" rel="noopener noreferrer"><sup>1</sup>Lawrence Livermore National Laboratory, CA, USA</a></h4>
+        
+        <h4><a href="https://www.microsoft.com/" target="_blank" rel="noopener noreferrer"><sup>2</sup>Microsoft, WA, USA</a></h4>
+        
+        <h4><a href="https://www.asu.edu/" target="_blank" rel="noopener noreferrer"><sup>3</sup>Arizona State University, AZ, USA</a></h4>
+        
+    </div>
+    
+
+    <br>
+
+    <div class="cta">
+    <div class="cta-background">
+        
+        <a href="https://arxiv.org/pdf/2207.05286.pdf" target="_blank" rel="noopener noreferrer">
+            <span><i class="fa fa-file-pdf" style="margin-right: 3px;"></i>Paper</span>
+        </a>  
+        
+
+        
+        <a href="https://arxiv.org/pdf/2207.05286.pdf" target="_blank" rel="noopener noreferrer">
+            <span><i class="fas fa-chalkboard" style="margin-right: 3px;"></i>Slides</span>
+        </a>
+        
+
+        
+        <a href="https://arxiv.org/pdf/2207.05286.pdf" target="_blank" rel="noopener noreferrer">
+            <span><i class="fas fa-file-powerpoint" style="margin-right: 3px;"></i>Poster</span>
+        </a>
+        
+
+        
+
+        
+        <a href="https://github.com/LLNL/OODmedic" target="_blank" rel="noopener noreferrer">
+            <span><i class="fab fa-github" style="margin-right: 3px;"></i>Github</span>
+        </a>
+        
+    </div>
+    </div>
+
+      
+<!--       
+      <div class="cta" style="font-size: 1.8rem; padding: 10px;">
+        
+        <a href="https://arxiv.org/pdf/2207.05286.pdf">
+          <span><i class="fa fa-file-pdf" style="margin-right: 3px;"></i>Paper</span>
+        </a>  
+        
+      
+        
+        <a href="https://arxiv.org/pdf/2207.05286.pdf">
+          <span><i class="fas fa-chalkboard" style="margin-right: 3px;"></i>Slides</span>
+        </a>
+        
+      
+        
+        <a href="https://arxiv.org/pdf/2207.05286.pdf">
+          <span><i class="fas fa-file-powerpoint" style="margin-right: 3px;"></i>Poster</span>
+        </a>
+        
+      
+        
+      
+        
+        <a href="https://github.com/LLNL/OODmedic">
+          <span><i class="fab fa-github" style="margin-right: 3px;"></i>Github</span>
+        </a>
+        
+      </div> -->
+      
+      <br>
+
+    </header>
+
+    
+    <div class="wrapper">
+
+      <h1 id="summary">Summary</h1>
+<p align="justify">
+Our primary focus is on developing well-calibrated out-of-distribution (OOD) detectors to ensure the safe deployment of medical image classifiers. The use of synthetic augmentations has become common for specifying regimes of data inliers and outliers. However, our research findings highlight the substantial influence of both the synthesis space and the type of augmentation on the performance of OOD detectors. After conducting an extensive study using medical imaging benchmarks and open-set recognition settings, we recommend employing a combination of virtual inliers in the classifier's latent space and diverse synthetic outliers in the pixel space. This approach proves highly effective in producing OOD detectors with superior performance.
+</p>
+
+<h1 id="video">Video</h1>
+<p align="justify">
+Coming soon
+</p>
+<!-- <div class="video-container" style="display: flex; justify-content: center; align-items: center; margin-bottom: 60px;">
+    <iframe 
+        src="https://www.youtube.com/embed/2bQwT548NFI" 
+        width="800" 
+        height="450" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen
+    ></iframe>
+</div>
+ -->
+
+<h1 id="method">Method</h1>
+
+<div class="figure-caption text-center" style="font-size: 18px;">
+  
+    <img src="assets/img/approach.png" alt="Alt text" width="" height="" style="margin: auto; object-fit: contain; object-position: center; display: block; transition: filter 0.3s;" class="" />
+  
+  <br />
+  
+  <br />
+</div>
+
+<style>
+.clickable-image:hover {
+  filter: brightness(80%);
+}
+</style>
+
+<!-- <div style="font-size:18px">
+  <ol type="a">
+  <p align="justify">
+  <li><strong>Training:</strong> Train the medical image classifier along with the appropriate calibration protocol i.e latent-space inliers & pixel-space outliers.</li>
+  <li><strong>OOD Detection:</strong> Use an energy based OOD detector to distinguish between ID and OOD (Modality Shifts / Novel Classes) and compute the performance metrics for e.g., AUROC</li>
+  </p>
+</ol>
+</div> -->
+
+<!-- 
+
+<div class="figure-caption text-center" style="font-size: 18px;">
+  
+    <a href="https://icml-sista.github.io/" target="_blank">
+  
+    <img src="assets/img/website-fig-teaser.png" alt="Alt text" 
+      width=""  
+      height="400" 
+      style="margin: auto; object-fit: contain; object-position: center; display: block; transition: filter 0.3s;"
+      class="clickable-image"
+    >
+  
+    </a>
+  
+  <br>
+  
+    <b> </b>Examples of synthetic data generated using SiSTA. <strong>Please follow the link by clicking the image</strong> to access additional examples for different benchmarks and distribution shifts.
+    <br>
+  
+  <br>
+</div>
+
+<style>
+.clickable-image:hover {
+  filter: brightness(80%);
+}
+</style>
+ -->
+
+<h1 id="empirical-results">Empirical Results</h1>
+
+<div class="gallery">
+  <div class="main-display"> 
+    <div class="main-image">
+      <img src="assets/img/results_new_2.png" alt="" class="gallery-image" id="mainImage" />
+      <p>Our calibration protocol consistently outperforms all baselines (G-ODIN, VOS, VOS++, NDA, NDA++) by significant margins (10% to 30% on average for Modality Shift Detection and 15% to 28% for Novel Class Detection ) in terms of AUROC scores without compromising on the ID accuracy.</p>
+    </div>
+  </div>
+  <div class="thumbnails">
+    
+      <div class="thumbnail" onclick="changeImage(this, 'assets/img/results_new_2.png', 'Our calibration protocol consistently outperforms all baselines (G-ODIN, VOS, VOS++, NDA, NDA++) by significant margins (10% to 30% on average for Modality Shift Detection and 15% to 28% for Novel Class Detection ) in terms of AUROC scores without compromising on the ID accuracy.', 0)">
+        <img src="assets/img/results_new_2.png" alt="" class="gallery-thumbnail" />
+      </div>
+    
+      <div class="thumbnail" onclick="changeImage(this, 'assets/img/results_2_1.png', 'Our approach better demarcates between ID and OOD distributions as seen in the histogram plots of the energy scores in comparison to the baselines.', 1)">
+        <img src="assets/img/results_2_1.png" alt="" class="gallery-thumbnail" />
+      </div>
+    
+      <div class="thumbnail" onclick="changeImage(this, 'assets/img/results_3_1.png', 'In fact, our approach can effectively detect even covariate shifts and demonstrates a substantial improvement of approximately 7% to 35% in AUROC compared to the baselines.', 2)">
+        <img src="assets/img/results_3_1.png" alt="" class="gallery-thumbnail" />
+      </div>
+    
+  </div>
+</div>
+
+<script>
+var gallery_data = [{"src":"assets/img/results_new_2.png","alt":null,"caption":"Our calibration protocol consistently outperforms all baselines (G-ODIN, VOS, VOS++, NDA, NDA++) by significant margins (10% to 30% on average for Modality Shift Detection and 15% to 28% for Novel Class Detection ) in terms of AUROC scores without compromising on the ID accuracy."},{"src":"assets/img/results_2_1.png","alt":null,"caption":"Our approach better demarcates between ID and OOD distributions as seen in the histogram plots of the energy scores in comparison to the baselines."},{"src":"assets/img/results_3_1.png","alt":null,"caption":"In fact, our approach can effectively detect even covariate shifts and demonstrates a substantial improvement of approximately 7% to 35% in AUROC compared to the baselines."}];
+var currentThumbnail = document.querySelector('.thumbnail');
+var currentIndex = 0;
+currentThumbnail.style.boxShadow = '0px 0px 10px 3px rgba(0,0,0,0.75)';
+
+function changeImage(element, src, caption, index) {
+  document.getElementById('mainImage').src = src;
+  document.querySelector('.main-image p').innerText = caption;
+  currentThumbnail.style.boxShadow = 'none';
+  element.style.boxShadow = '0px 0px 10px 3px rgba(0,0,0,0.75)';
+  currentThumbnail = element;
+  currentIndex = index;
+}
+
+// Swipe functionality...
+var startX = 0;
+var startY = 0;
+
+document.getElementById('mainImage').addEventListener('touchstart', function(e) {
+  startX = e.touches[0].clientX;
+  startY = e.touches[0].clientY;
+}, false);
+
+document.getElementById('mainImage').addEventListener('touchend', function(e) {
+  var deltaX = e.changedTouches[0].clientX - startX;
+  var deltaY = e.changedTouches[0].clientY - startY;
+  if (Math.abs(deltaX) > Math.abs(deltaY)) { // If horizontal swipe
+    if (deltaX > 0) { // If swipe to the right
+      if (currentIndex > 0) {
+        currentIndex--;
+        changeImage(
+          document.getElementsByClassName('thumbnail')[currentIndex], 
+          gallery_data[currentIndex].src, 
+          gallery_data[currentIndex].caption, 
+          currentIndex
+        );
+      }
+    } else { // If swipe to the left
+      if (currentIndex < gallery_data.length - 1) {
+        currentIndex++;
+        changeImage(
+          document.getElementsByClassName('thumbnail')[currentIndex], 
+          gallery_data[currentIndex].src, 
+          gallery_data[currentIndex].caption, 
+          currentIndex
+        );
+      }
+    }
+  }
+}, false);
+</script>
+
+<style>
+.gallery {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.main-image {
+  width: 70%;
+  height: auto;
+  margin-bottom: 20px;
+}
+.gallery-image {
+  width: 100%;
+  height: auto;
+}
+.thumbnails {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  overflow-x: auto;
+}
+.thumbnail {
+  flex: none;
+  margin: 5px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+.thumbnail:hover {
+  transform: scale(1.1);
+}
+.gallery-thumbnail {
+  width: 100px;
+}
+
+.gallery .main-image {
+  width: 100%;
+  height: auto;
+  margin: auto;
+}
+
+.gallery .main-image .gallery-image {
+  width: 100%;
+  height: auto;
+}
+
+.gallery .thumbnails {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.gallery .thumbnail {
+  width: 200px;
+  height: auto;
+}
+
+.gallery .thumbnail .gallery-thumbnail {
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.gallery .thumbnail:hover .gallery-thumbnail {
+  transform: scale(1.1);
+}
+
+.thumbnail {
+  box-shadow: none;
+}
+.main-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.thumbnail:hover {
+  transform: scale(1.1);
+  box-shadow: 0px 0px 10px 3px rgba(0,0,0,0.75);
+}
+@media only screen and (max-width: 600px) {
+  .gallery .thumbnails {
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 10px;
+  }
+
+  .gallery .thumbnail {
+    width: 100px;
+    height: auto;
+  }
+
+  /* Chrome, Safari, and Edge scrollbar styles */
+  .gallery .thumbnails::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  .gallery .thumbnails::-webkit-scrollbar-track {
+    background: #f5f5f5;
+  }
+
+  .gallery .thumbnails::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 20px;
+  }
+}
+</style>
+
+<h1 id="citation">Citation</h1>
+
+<pre style="background-color: #f2f2f2; font-size: 14px; line-height: 1.5; font-style: normal; color: #555; white-space: pre-line;">
+  <code>@inproceedings{narayanaswamy2023know,
+title={Know Your Space: Inlier and Outlier Construction for Calibrating Medical {OOD} Detectors},
+author={Vivek Narayanaswamy and Yamen Mubarka and Rushil Anirudh and Deepta Rajan and Andreas Spanias and Jayaraman J. Thiagarajan},
+booktitle={Medical Imaging with Deep Learning},
+year={2023}}</code>
+</pre>
+
+<h1 id="contact">Contact</h1>
+<p>If you have any questions, please feel free to contact us via email: narayanaswam1@llnl.gov; jjayaram@llnl.gov</p>
+
+
+      <br>
+
+      
+
+      <br>
+      
+
+    </div>
+    <script src="/assets/js/scale.fix.js"></script>
+  </body>
+</html>
