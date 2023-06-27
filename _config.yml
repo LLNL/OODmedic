@@ -47,9 +47,9 @@ description: This paper identifies that the space in which the inliers and outli
 
 # Links
 paper_link: https://arxiv.org/pdf/2207.05286.pdf
-slides_link: https://arxiv.org/pdf/2207.05286.pdf
+slides_link: ./assets/docs/KYS_Slides.pdf
 poster_link: https://arxiv.org/pdf/2207.05286.pdf
-video_link: 
+video_link: https://software.llnl.gov/OODmedic/
 github_link: https://github.com/LLNL/OODmedic
 
 # Images
