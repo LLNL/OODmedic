@@ -36,7 +36,7 @@ python ood_detection.py --in_dataset bloodmnist --model_type wrn --dir_name in_l
 
 NOTE: For performing OOD detection, you must have the classifier trained on the given dataset stored in `./ckpts`
 
-# To reproduce our results
+## To reproduce our results
 [Click here](https://arizonastateu-my.sharepoint.com/:u:/g/personal/vnaray29_sundevils_asu_edu/ESSQ986FmfdPlBNtnYLVD9AB6cAZFjWVUeuD0kW28ltslQ?e=e2vj3A) to download the MedMNIST datasets, Train/Val Split CSV Files and Pre-trained checkpoints. Extract them in your working directory.
 
 Download the checkpoints from the link provided above. Extract the .zip file as is in your working directory. Then execute the command in Step 2.
