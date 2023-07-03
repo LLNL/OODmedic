@@ -8,12 +8,9 @@ Our primary focus is on developing well-calibrated out-of-distribution (OOD) det
 </p>
 
 # Video
-<p align="justify">
-Coming soon
-</p>
-<!-- {% include add_video.html 
-    youtube_link="https://www.youtube.com/embed/2bQwT548NFI" 
-%} -->
+{% include add_video.html 
+    youtube_link="https://www.youtube.com/embed/jpR7ouFTDqA" 
+%}
 
 
 # Method
